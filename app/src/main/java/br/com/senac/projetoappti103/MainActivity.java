@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     //Declarar as variáveis globais referenciando os componentes
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.monica, R.drawable.john, R.drawable.tomorrow,
             R.drawable.spiderman, R.drawable.joker, R.drawable.shrek,
             R.drawable.angry};
+    String notas[] = {"12", "3.579", "43", "18.834", "1.527", "1.279", "10.899", "1", "43", "1.279"};
 
 
     @Override
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 0;
+            return imgFilmes.length;
         }
 
         @Override
@@ -55,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
+            //Criando as variáveis globais para os componentes
+            ImageView imgFilmes;
+            TextView txtTitulo, txtAno, txtClassificacao, txtNotas;
+
+            //Instânciando e carregando o modelo ao adaptador
+            View view1 = getLayoutInflater().inflate(R.layout.modelo_filmes,null);
+
             return null;
         }
     }
