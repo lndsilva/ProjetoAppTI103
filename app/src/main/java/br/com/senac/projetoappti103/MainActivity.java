@@ -1,10 +1,13 @@
 package br.com.senac.projetoappti103;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.angry};
     String notas[] = {"12", "3.579", "43", "18.834", "1.527", "1.279", "10.899", "1", "43", "1.279"};
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,28 @@ public class MainActivity extends AppCompatActivity {
 
         lstFilmes = findViewById(R.id.listaFilmes);
 
-        //lstFilmes.setAdapter();
+        //instânciar o adaptador
+        MyAdapter adapter = new MyAdapter();
+
+        lstFilmes.setAdapter(adapter);
+
+        lstFilmes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                //abrindo outra janela e passando os valores
+                Intent intent = new Intent(getApplicationContext(),MostrarFilmesActivity.class);
+
+                intent.putExtra("titulo",titulo[i]);
+                intent.putExtra("ano",ano[i]);
+                intent.putExtra("classificacao",classificacao[i]);
+                intent.putExtra("notas",notas[i]);
+                intent.putExtra("imagemFilme",imgFilmes[i]);
+
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -59,13 +82,29 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             //Criando as variáveis globais para os componentes
-            ImageView imgFilmes;
+            ImageView imageFilmes;
             TextView txtTitulo, txtAno, txtClassificacao, txtNotas;
 
             //Instânciando e carregando o modelo ao adaptador
-            View view1 = getLayoutInflater().inflate(R.layout.modelo_filmes,null);
+            View view1 = getLayoutInflater().inflate(R.layout.modelo_filmes, null);
 
-            return null;
+            //Declarando o xml para o java
+
+            txtTitulo = view1.findViewById(R.id.txtModeloTitulo);
+            txtAno = view1.findViewById(R.id.txtModeloAno);
+            txtClassificacao = view1.findViewById(R.id.txtModeloClassificacao);
+            txtNotas = view1.findViewById(R.id.txtModeloNotas);
+            imageFilmes = view1.findViewById(R.id.imgModeloFilme);
+
+            //Passando os valores para os componentes do modelo
+            txtTitulo.setText(titulo[i]);
+            txtAno.setText(ano[i]);
+            txtClassificacao.setText(classificacao[i]);
+            txtNotas.setText(notas[i]);
+
+            imageFilmes.setImageResource(imgFilmes[i]);
+
+            return view1;
         }
     }
 }
